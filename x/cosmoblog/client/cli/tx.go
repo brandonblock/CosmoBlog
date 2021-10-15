@@ -37,5 +37,20 @@ func GetTxCmd() *cobra.Command {
 }
 
 func CmdCreatePost() *cobra.Command {
-	return nil
+	cmd := &cobra.Command{
+		Use:   "create-post [title] [body]",
+		Short: "Creates a new post",
+		Args:  cobra.ExactArgs(2),
+		// RunE: func(cmd *cobra.Command, args []string) error {
+		// 	argsTitle := string(args[0])
+		// 	argsBody := string(args[1])
+
+		// 	clientCtx, err := client.GetClientTxContext(cmd)
+		// 	if err != nil {
+		// 		log.Err("unable to get client TX Context, err:", err)
+		// 	}
+
+		// },
+	}
+	return cmd
 }
