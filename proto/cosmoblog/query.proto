@@ -11,6 +11,12 @@ option go_package = "github.com/example/CosmoBlog/x/cosmoblog/types"
 // Query defines the gRPC querier service.
 service Query {
     // this line is used by starport scaffolding # 2
+    rpc Post(QueryGetPostRequest) returns (QueryGetPostResponse) {
+		option (google.api.http).get = "/example/blog/blog/post/{id}";
+	}
+	rpc PostAll(QueryAllPostRequest) returns (QueryAllPostResponse) {
+		option (google.api.http).get = "/example/blog/blog/post";
+	}
 }
 
 // this line is used by starport scaffolding # 3
