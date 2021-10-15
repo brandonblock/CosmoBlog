@@ -4,11 +4,11 @@ import (
 	"fmt"
 	"time"
 
+	"github.com/rs/zerolog/log"
 	"github.com/spf13/cobra"
 
 	"github.com/cosmos/cosmos-sdk/client"
-	// "github.com/cosmos/cosmos-sdk/client/flags"
-	// "github.com/cosmos/cosmos-sdk/client/tx"
+	"github.com/cosmos/cosmos-sdk/client/tx"
 	"github.com/example/CosmoBlog/x/cosmoblog/types"
 )
 
@@ -41,16 +41,20 @@ func CmdCreatePost() *cobra.Command {
 		Use:   "create-post [title] [body]",
 		Short: "Creates a new post",
 		Args:  cobra.ExactArgs(2),
-		// RunE: func(cmd *cobra.Command, args []string) error {
-		// 	argsTitle := string(args[0])
-		// 	argsBody := string(args[1])
+		RunE: func(cmd *cobra.Command, args []string) error {
+			argsTitle := string(args[0])
+			argsBody := string(args[1])
 
-		// 	clientCtx, err := client.GetClientTxContext(cmd)
-		// 	if err != nil {
-		// 		log.Err("unable to get client TX Context, err:", err)
-		// 	}
-
-		// },
+			clientCtx, err := client.GetClientTxContext(cmd)
+			if err != nil {
+				log.Err(err)
+			}
+			msg := types.NewMsgCreatePost(clientCtx.GetFromAddress().String(), string(argsTitle), string(argsBody))
+			if err := msg.ValidateBasic(); err != nil {
+				return err
+			}
+			return tx.GenerateOrBroadcastTxCLI(clientCtx, cmd.Flags(), msg)
+		},
 	}
 	return cmd
 }
