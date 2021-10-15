@@ -8,6 +8,7 @@ import (
 	"github.com/spf13/cobra"
 
 	"github.com/cosmos/cosmos-sdk/client"
+	"github.com/cosmos/cosmos-sdk/client/flags"
 	"github.com/cosmos/cosmos-sdk/client/tx"
 	"github.com/example/CosmoBlog/x/cosmoblog/types"
 )
@@ -56,5 +57,9 @@ func CmdCreatePost() *cobra.Command {
 			return tx.GenerateOrBroadcastTxCLI(clientCtx, cmd.Flags(), msg)
 		},
 	}
+
+	// Don't forget to add the flags!
+	flags.AddTxFlagsToCmd(cmd)
+
 	return cmd
 }
