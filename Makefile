@@ -14,7 +14,7 @@ all: install
 
 install: go.sum
 	@echo "--> Installing blogd"
-	@go install -mod=readonly $(BUILD_FLAGS) ./cmd/blogd
+	@go install -mod=readonly $(BUILD_FLAGS) ./cmd/CosmoBlogd
 
 go.sum: go.mod
 	@echo "--> Ensure dependencies have not been modified"
