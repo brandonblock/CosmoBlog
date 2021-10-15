@@ -8,6 +8,7 @@ import (
 
 	"github.com/cosmos/cosmos-sdk/client"
 	// "github.com/cosmos/cosmos-sdk/client/flags"
+	// "github.com/cosmos/cosmos-sdk/client/tx"
 	"github.com/example/CosmoBlog/x/cosmoblog/types"
 )
 
@@ -30,6 +31,11 @@ func GetTxCmd() *cobra.Command {
 	}
 
 	// this line is used by starport scaffolding # 1
+	cmd.AddCommand(CmdCreatePost())
 
 	return cmd
+}
+
+func CmdCreatePost() *cobra.Command {
+	return nil
 }
