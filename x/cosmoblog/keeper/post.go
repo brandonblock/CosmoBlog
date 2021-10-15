@@ -49,7 +49,7 @@ func (k Keeper) CreatePost(ctx sdk.Context, msg types.MsgCreatePost) {
 
 	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.PostKey))
 	key := types.KeyPrefix(types.PostKey + post.Id)
-	value := k.cdc.MustMarshalBinaryBare(&post)
+	value := k.cdc.MustMarshal(&post)
 	store.Set(key, value)
 
 	// Update post count
@@ -59,7 +59,7 @@ func (k Keeper) CreatePost(ctx sdk.Context, msg types.MsgCreatePost) {
 func (k Keeper) GetPost(ctx sdk.Context, key string) types.Post {
 	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.PostKey))
 	var post types.Post
-	k.cdc.MustUnmarshalBinaryBare(store.Get(types.KeyPrefix(types.PostKey+key)), &post)
+	k.cdc.MustUnmarshal(store.Get(types.KeyPrefix(types.PostKey+key)), &post)
 	return post
 }
 
@@ -80,7 +80,7 @@ func (k Keeper) GetAllPost(ctx sdk.Context) (msgs []types.Post) {
 
 	for ; iterator.Valid(); iterator.Next() {
 		var msg types.Post
-		k.cdc.MustUnmarshalBinaryBare(iterator.Value(), &msg)
+		k.cdc.MustUnmarshal(iterator.Value(), &msg)
 		msgs = append(msgs, msg)
 	}
 
