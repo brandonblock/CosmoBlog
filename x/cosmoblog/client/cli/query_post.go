@@ -50,5 +50,34 @@ func CmdListPost() *cobra.Command {
 }
 
 func CmdShowPost() *cobra.Command {
-	return nil
+	cmd := &cobra.Command{
+		Use:   "show-post [id]",
+		Short: "shows a post",
+		Args:  cobra.ExactArgs(1),
+		RunE: func(cmd *cobra.Command, args []string) error {
+			clientCtx, err := client.GetClientTxContext(cmd)
+			if err != nil {
+				log.Err(err)
+				return err
+			}
+
+			queryClient := types.NewQueryClient(clientCtx)
+
+			params := &types.QueryGetPostRequest{
+				Id: args[0],
+			}
+
+			res, err := queryClient.Post(context.Background(), params)
+			if err != nil {
+				log.Err(err)
+				return err
+			}
+
+			return clientCtx.PrintProto(res)
+		},
+	}
+
+	flags.AddQueryFlagsToCmd(cmd)
+
+	return cmd
 }
