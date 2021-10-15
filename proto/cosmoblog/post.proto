@@ -1,5 +1,5 @@
 syntax = "proto3";
-package example.cosmoblog.cosmoblog
+package example.cosmoblog.cosmoblog;
 
 option go_package = "github.com/example/CosmoBlog/x/cosmoblog/types";
 
