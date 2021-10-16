@@ -4,9 +4,9 @@ package example.blog.blog;
 import "google/api/annotations.proto";
 import "cosmos/base/query/v1beta1/pagination.proto";
 // this line is used by starport scaffolding # 1
-import "blog/post.proto";
+import "CosmoBlog/post.proto";
 
-option go_package = "github.com/example/CosmoBlog/x/cosmoblog/types"
+option go_package = "github.com/example/CosmoBlog/x/cosmoblog/types";
 
 // Query defines the gRPC querier service.
 service Query {
